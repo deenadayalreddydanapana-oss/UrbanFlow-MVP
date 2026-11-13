@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UrbanFlow AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <strong class="brand">URBANFLOW AI</strong>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Theme">☾</button>
+    </header>
+
+    <section class="actions">
+      <button id="predictBtn" class="btn predict" type="button">PREDICT</button>
+      <button id="simulateBtn" class="btn" type="button">SIMULATE CRASH</button>
+    </section>
+
+    <section class="stats">
+      <article class="stat vehicles"><label>VEHICLES</label><strong id="vehicles">—</strong></article>
+      <article class="stat congestion"><label>CONGESTION</label><strong><span id="congestion">—</span>%</strong><small id="severity">—</small></article>
+      <article class="stat incidents"><label>INCIDENTS</label><strong id="incidents">0</strong></article>
+    </section>
+
+    <section class="main-layout">
+      <article class="panel">
+        <h2>MAP</h2>
+        <div class="controls">
+          <label>FROM <select id="startNode"></select></label>
+          <label>TO <select id="endNode"></select></label>
+          <label>WEATHER
+            <select id="weather"><option value="0" selected>CLEAR</option><option value="1">RAIN</option></select>
+          </label>
+          <label>TIME <span class="range"><input id="timeOfDay" type="range" min="0" max="23" step="0.5" value="8.5"><output id="timeValue">08:30</output></span></label>
+          <label class="wide">VEHICLES <span class="range"><input id="vehicleCount" type="range" min="0" max="150" step="1" value="85"><output id="vehicleValue">85</output></span></label>
+        </div>
+        <div class="legend">
+          <span><i class="key crash"></i> Crash</span>
+          <span><i class="key best"></i> Route</span>
+          <span><i class="key alt"></i> Other</span>
+        </div>
+        <div id="map" aria-label="Map of Hyderabad"></div>
+        <div class="caption"><span>© OpenStreetMap</span><span id="mapTime">—</span></div>
+      </article>
+
+      <aside class="panel result">
+        <h2>RESULT</h2>
+        <div class="heading" id="decisionHeading">READY</div>
+        <p id="decisionText">Press a button.</p>
+        <div class="metrics">
+          <div><label>BY</label><strong id="agentName">—</strong></div>
+          <div><label>CONFIDENCE</label><strong id="confidence">—</strong></div>
+          <div><label>ETA</label><strong id="timeSaved">—</strong></div>
+        </div>
+        <h3>LOG</h3>
+        <div id="agentLog" class="agent-log" aria-live="polite"></div>
+      </aside>
+    </section>
+
+    <section class="bottom-layout">
+      <article class="panel">
+        <h2>ROUTES</h2>
+        <div id="routesList"></div>
+      </article>
+      <article class="panel">
+        <h2>DIRECTIONS <span id="directionsSummary" class="tag">—</span></h2>
+        <div id="directionsList" class="directions-list"><div class="empty-hint">—</div></div>
+      </article>
+    </section>
+
+    <section class="panel forecast">
+      <h2>FORECAST <span id="predictMeta" class="tag">—</span></h2>
+      <div id="predictBody"><div class="empty-hint">Press PREDICT.</div></div>
+    </section>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

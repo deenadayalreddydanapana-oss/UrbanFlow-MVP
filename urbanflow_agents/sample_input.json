@@ -1,0 +1,12 @@
+{
+  "event_id": "UF-1001",
+  "location": {
+    "current_node": "A",
+    "destination_node": "E",
+    "road": "Main Street"
+  },
+  "camera_crash_signal": true,
+  "congestion_level": "high",
+  "vehicle_count": 48,
+  "average_speed_kmph": 9
+}
